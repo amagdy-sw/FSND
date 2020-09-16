@@ -100,7 +100,7 @@ def index():
 def venues():
   # TODO: replace with real venues data.
   #       num_shows should be aggregated based on number of upcoming shows per venue.
-  areasQuery = db.session.query(Venue.city, Venue.state).distinct().all()
+  areasQuery = db.session.query(Venue.city, Venue.state).distinct().order_by(Venue.state).all()
   data=[]
   for area in areasQuery:
     areas = {}
@@ -116,7 +116,6 @@ def venues():
       venues.append(a_venue)
     areas['venues'] = venues
     data.append(areas)  
-    print(data)
   return render_template('pages/venues.html', areas=data)
 
 @app.route('/venues/search', methods=['POST'])
@@ -279,7 +278,7 @@ def delete_venue(venue_id):
 def artists():
   # TODO: replace with real data returned from querying the database
   data = []
-  artists = Artist.query.order_by(Artist.id).all()
+  artists = Artist.query.order_by(Artist.name).all()
   for artist in artists:
     artist_data = {}
     artist_data["id"] = artist.id
@@ -589,7 +588,7 @@ def shows():
     Artist.id == Show.artist_id
     ).filter(
       Venue.id == Show.venue_id
-    ).all()
+    ).order_by(Show.start_time).all()
 
   for (artist, venue, show) in shows:
     shows_data = {}
@@ -617,12 +616,9 @@ def create_show_submission():
     artist_id = int(request.form['artist_id'])
     venue_id = int(request.form['venue_id'])
     start_timeInput = format_datetime(request.form['start_time'])
-    print(start_timeInput)
     fmt = '%a %m, %d, %Y %I:%M%p'
     start_time = datetime.strptime(start_timeInput, fmt)
-    print(start_time)
     show = Show(artist_id = artist_id, venue_id=venue_id, start_time=start_time)
-    print(show)
     db.session.add(show)
     db.session.commit()
     # on successful db insert, flash success
