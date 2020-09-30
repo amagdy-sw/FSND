@@ -189,6 +189,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 ```
 #### POST /questions
 - General:
+    - creates a new question, which will require the question and answer text, category, and difficulty score.
 - Sample: `curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"question\": \"How far away is the sun?\", \"answer\": \"93 million miles away from earth\", \"category\": 2, \"difficulty\":4}"
 `
 ```
