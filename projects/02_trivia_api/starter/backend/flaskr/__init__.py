@@ -172,15 +172,15 @@ def create_app(test_config=None):
   def retrieve_category_questions(category_id):
     try:
       questions = Question.query.order_by(Question.id).filter_by(category=category_id).all()
-      paginatedQuestions = paginate(request, questions)
+      paginated_questions = paginate(request, questions)
       all_categories = Category.query.order_by(Category.id).all()
       categories = {category.id:category.type for category in all_categories}
-      if len(paginatedQuestions) == 0:
+      if len(paginated_questions) == 0:
         abort(404)
       else:
         return jsonify({
           "success": True,
-          "questions": paginatedQuestions,
+          "questions": paginated_questions,
           "total_questions": len(questions),
           "current_category": category_id,
           "categories": categories,
