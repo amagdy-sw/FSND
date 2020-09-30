@@ -217,6 +217,7 @@ def create_app(test_config=None):
         formatted_question = question.format()
 
       return jsonify({
+          "success": True,
           "question": formatted_question,
       })
     except:

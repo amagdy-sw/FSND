@@ -289,10 +289,11 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - General:
     - take category and previous question parameters
     - return a random question object within the given category, 
-    if provided, and that is not one of the previous questions
+    if provided, and that is not one of the previous questions and success value
 - Sample: `curl -X POST http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"quiz_category\": {\"id\":1, \"type\":\"Science\"}, \"previous_questions\":[21,29]}"`
 ```
 {
+  "success": true,
   "question": {
     "answer": "Blood",
     "category": 1,
