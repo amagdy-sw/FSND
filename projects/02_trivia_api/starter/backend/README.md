@@ -228,11 +228,12 @@ One note before you delve into your tasks: for each endpoint you are expected to
   "total_questions": 2
 }
 ```
-#### POST /categories/{category_id}/questions
+#### GET /categories/{category_id}/questions
 - General:
-    - get questions based on category 
+    - return list of questions based on given category 
+    - Results are paginated in groups of 10. Include a request argument to choose page number,starting from 1.     
     - returns questions, current category, categories, total number of questions and success value
-- Sample: `curl http://127.0.0.1:5000/categories/1/questions` 
+- Sample: `curl http://127.0.0.1:5000/categories/1/questions?page=1` 
 ```
 {
   "categories": {
