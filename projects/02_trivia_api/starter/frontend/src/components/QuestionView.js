@@ -14,6 +14,7 @@ class QuestionView extends Component {
       totalQuestions: 0,
       categories: {},
       currentCategory: null,
+      searchTerm: null
     }
   }
 
@@ -22,6 +23,14 @@ class QuestionView extends Component {
   }
 
   getQuestions = () => {
+    if(this.state.searchTerm != null){
+      this.submitSearch(this.state.searchTerm)
+        return;
+    }
+    if(this.state.currentCategory != null){
+      this.getByCategory(this.state.currentCategory)
+      return;
+    }
     $.ajax({
       url: `/questions?page=${this.state.page}`, //TODO: update request URL
       type: "GET",
@@ -30,7 +39,9 @@ class QuestionView extends Component {
           questions: result.questions,
           totalQuestions: result.total_questions,
           categories: result.categories,
-          currentCategory: result.current_category })
+          currentCategory: result.current_category,
+          searchTerm: null
+         })
         return;
       },
       error: (error) => {
@@ -60,13 +71,15 @@ class QuestionView extends Component {
 
   getByCategory= (id) => {
     $.ajax({
-      url: `/categories/${id}/questions`, //TODO: update request URL
+      url: `/categories/${id}/questions?page=${this.state.page}`, //TODO: update request URL
       type: "GET",
       success: (result) => {
         this.setState({
           questions: result.questions,
           totalQuestions: result.total_questions,
-          currentCategory: result.current_category })
+          currentCategory: result.current_category,
+          searchTerm: null
+         })
         return;
       },
       error: (error) => {
@@ -78,7 +91,7 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions/search`, //TODO: update request URL
+      url: `/questions/search?page=${this.state.page}`, //TODO: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -91,7 +104,9 @@ class QuestionView extends Component {
         this.setState({
           questions: result.questions,
           totalQuestions: result.total_questions,
-          currentCategory: result.current_category })
+          currentCategory: result.current_category,
+          searchTerm: searchTerm
+        })
         return;
       },
       error: (error) => {
