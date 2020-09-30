@@ -7,7 +7,8 @@ class Search extends Component {
 
   getInfo = (event) => {
     event.preventDefault();
-    this.props.submitSearch(this.state.query)
+    //by default search start from page 1
+    this.props.submitSearch(this.state.query,1)
   }
 
   handleInputChange = () => {

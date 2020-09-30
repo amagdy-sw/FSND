@@ -23,14 +23,21 @@ class QuestionView extends Component {
   }
 
   getQuestions = () => {
+    /*get questions based on current view*/
+
+    //case search view
     if(this.state.searchTerm != null){
-      this.submitSearch(this.state.searchTerm)
+      this.submitSearch(this.state.searchTerm,this.state.page)
         return;
     }
+
+    //case a given category
     if(this.state.currentCategory != null){
-      this.getByCategory(this.state.currentCategory)
+      this.getByCategory(this.state.currentCategory,this.state.page)
       return;
     }
+
+    //other case get all questions
     $.ajax({
       url: `/questions?page=${this.state.page}`, //TODO: update request URL
       type: "GET",
@@ -69,9 +76,9 @@ class QuestionView extends Component {
     return pageNumbers;
   }
 
-  getByCategory= (id) => {
+  getByCategory= (id,page) => {
     $.ajax({
-      url: `/categories/${id}/questions?page=${this.state.page}`, //TODO: update request URL
+      url: `/categories/${id}/questions?page=${page}`, //TODO: update request URL
       type: "GET",
       success: (result) => {
         this.setState({
@@ -89,9 +96,9 @@ class QuestionView extends Component {
     })
   }
 
-  submitSearch = (searchTerm) => {
+  submitSearch = (searchTerm,page) => {
     $.ajax({
-      url: `/questions/search?page=${this.state.page}`, //TODO: update request URL
+      url: `/questions/search?page=${page}`, //TODO: update request URL
       type: "POST",
       dataType: 'json',
       contentType: 'application/json',
@@ -135,13 +142,17 @@ class QuestionView extends Component {
   }
 
   render() {
+    
     return (
       <div className="question-view">
         <div className="categories-list">
-          <h2 onClick={() => {this.getQuestions()}}>Categories</h2>
+                        
+          <h2 onClick={() =>//in case click on categories reset paging and get all questions
+               {this.state.currentCategory = null; this.state.page = 1; this.getQuestions()}}>Categories</h2>
           <ul>
             {Object.keys(this.state.categories).map((id, ) => (
-              <li key={id} onClick={() => {this.getByCategory(id)}}>
+                                          //category questions start from page 1 by default
+              <li key={id} onClick={() => {this.getByCategory(id,1)}}>
                 {this.state.categories[id]}
                 <img className="category" src={`${this.state.categories[id]}.svg`}/>
               </li>
