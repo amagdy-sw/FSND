@@ -204,14 +204,14 @@ def create_app(test_config=None):
       body = request.get_json()
       
       previous_questions = body.get('previous_questions',[])
-      quiz_category = body.get('quiz_category', None)
-      print(previous_questions)
-      question = None
-      if quiz_category:
-        category_id = int(quiz_category.get('id'))    
+      quiz_category = body.get('quiz_category')
+      category_id = int(quiz_category.get('id'))      
+    
+      if category_id > 0:
         question = Question.query.filter(Question.category==int(category_id)).filter(~Question.id.in_(previous_questions)).order_by(func.random()).first()
       else:
         question = Question.query.filter(~Question.id.in_(previous_questions)).order_by(func.random()).first()    
+      
       formatted_question = None 
       if question:
         formatted_question = question.format()
