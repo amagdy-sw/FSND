@@ -85,7 +85,8 @@ class QuestionView extends Component {
           questions: result.questions,
           totalQuestions: result.total_questions,
           currentCategory: result.current_category,
-          searchTerm: null
+          searchTerm: null,
+          page: page
          })
         return;
       },
@@ -112,7 +113,8 @@ class QuestionView extends Component {
           questions: result.questions,
           totalQuestions: result.total_questions,
           currentCategory: result.current_category,
-          searchTerm: searchTerm
+          searchTerm: searchTerm,
+          page: page
         })
         return;
       },
@@ -148,7 +150,7 @@ class QuestionView extends Component {
         <div className="categories-list">
                         
           <h2 onClick={() =>//in case click on categories reset all paging and get all questions
-               {this.state.currentCategory = null; this.state.searchTerm = null; this.state.page = 1; this.getQuestions()}}>Categories</h2>
+               {this.state.currentCategory = null; this.state.searchTerm = null; this.state.page = 1; this.getQuestions();}}>Categories</h2>
           <ul>
             {Object.keys(this.state.categories).map((id, ) => (
                                           //category questions start from page 1 by default
