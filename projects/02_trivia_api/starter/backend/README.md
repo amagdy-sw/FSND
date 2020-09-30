@@ -179,7 +179,8 @@ One note before you delve into your tasks: for each endpoint you are expected to
 ```
 #### DELETE /questions/{question_id}
 - General:
-    - Deletes the question of the given ID if it exists. Returns the id of the deleted question, success value. 
+    - Deletes the question of the given ID if it exists. 
+    - Returns the id of the deleted question, success value. 
 - Sample: `curl -X DELETE http://127.0.0.1:5000/questions/24`
 ```
 {
@@ -190,6 +191,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 #### POST /questions
 - General:
     - creates a new question, which will require the question and answer text, category, and difficulty score.
+    - Returns the id of the created question, success value.
 - Sample: `curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"question\": \"How far away is the sun?\", \"answer\": \"93 million miles away from earth\", \"category\": 2, \"difficulty\":4}"
 `
 ```
