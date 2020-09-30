@@ -47,7 +47,8 @@ class QuestionView extends Component {
           totalQuestions: result.total_questions,
           categories: result.categories,
           currentCategory: result.current_category,
-          searchTerm: null
+          searchTerm: null,
+          page: this.state.page
          })
         return;
       },
@@ -132,6 +133,7 @@ class QuestionView extends Component {
           url: `/questions/${id}`, //TODO: update request URL
           type: "DELETE",
           success: (result) => {
+            this.state.page = 1;
             this.getQuestions();
           },
           error: (error) => {
