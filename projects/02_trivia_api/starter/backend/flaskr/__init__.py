@@ -255,7 +255,7 @@ def create_app(test_config=None):
     return jsonify({
       "success": False, 
       "error": 422,
-      "message": "resource is unprocessable"
+      "message": "unprocessable"
     }), 422
 
   @app.errorhandler(500)
