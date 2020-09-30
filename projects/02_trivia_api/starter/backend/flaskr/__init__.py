@@ -65,15 +65,15 @@ def create_app(test_config=None):
   @app.route("/questions")
   def retrieve_questions():
     questions = Question.query.order_by(Question.id).all()
-    paginatedQuestions = paginate(request, questions)
+    paginated_questions = paginate(request, questions)
     all_categories = Category.query.order_by(Category.id).all()
     categories = {category.id:category.type for category in all_categories}
-    if len(paginatedQuestions) == 0:
+    if len(paginated_questions) == 0:
       abort(404)
     else:
       return jsonify({
         "success": True,
-        "questions": paginatedQuestions,
+        "questions": paginated_questions,
         "total_questions": len(questions),
         "current_category": None,
         "categories": categories,
@@ -149,14 +149,14 @@ def create_app(test_config=None):
     searchTerm = body.get('searchTerm','')
 
     questions = Question.query.filter(Question.question.ilike('%'+searchTerm+'%')).all()
-    paginatedQuestions = paginate(request, questions)
+    paginated_questions = paginate(request, questions)
 
-    if len(paginatedQuestions) == 0:
+    if len(paginated_questions) == 0:
       abort(404)
     else:
       return jsonify({
           "success": True,
-          "questions": paginatedQuestions,
+          "questions": paginated_questions,
           "total_questions": len(questions),
           'current_category': None
       })
