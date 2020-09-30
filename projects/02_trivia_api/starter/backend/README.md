@@ -200,6 +200,109 @@ One note before you delve into your tasks: for each endpoint you are expected to
   "success": true
 }
 ```
+#### POST /questions/search
+- General: 
+    - Using the submitted search term, Returns a list of questions objects, success value, and total number of questions
+    - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
+- Sample: `curl -X POST http://127.0.0.1:5000/questions/search -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"searchTerm\": \"title\"}"`
+```
+{
+  "current_category": null,
+  "questions": [
+    {
+      "answer": "Maya Angelou",
+      "category": 4,
+      "difficulty": 2,
+      "id": 5,
+      "question": "Whose autobiography is entitled 'I Know Why the Caged Bird Sings'?"
+    },
+    {
+      "answer": "Edward Scissorhands",
+      "category": 5,
+      "difficulty": 3,
+      "id": 6,
+      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }
+  ],
+  "success": true,
+  "total_questions": 2
+}
+```
+#### POST /categories/{category_id}/questions
+- General:
+    - get questions based on category 
+    - returns questions, current category, categories, total number of questions and success value
+- Sample: `curl http://127.0.0.1:5000/categories/1/questions` 
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "current_category": 1,
+  "questions": [
+    {
+      "answer": "The Liver",
+      "category": 1,
+      "difficulty": 4,
+      "id": 20,
+      "question": "What is the heaviest organ in the human body?"
+    },
+    {
+      "answer": "Alexander Fleming",
+      "category": 1,
+      "difficulty": 3,
+      "id": 21,
+      "question": "Who discovered penicillin?"
+    },
+    {
+      "answer": "Blood",
+      "category": 1,
+      "difficulty": 4,
+      "id": 22,
+      "question": "Hematology is a branch of medicine involving the study of what?"
+    },
+    {
+      "answer": "The sun is 93 million miles away from the earth",
+      "category": 1,
+      "difficulty": 5,
+      "id": 29,
+      "question": "How far away is sun from earth?"
+    },
+    {
+      "answer": " formed when light hits water droplets in the air ",
+      "category": 1,
+      "difficulty": 2,
+      "id": 31,
+      "question": "How are rainbows made?"
+    }
+  ],
+  "success": true,
+  "total_questions": 5
+}
+```
+#### POST /quizzes
+- General:
+    - take category and previous question parameters
+    - return a random question object within the given category, 
+    if provided, and that is not one of the previous questions
+- Sample: `curl -X POST http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"quiz_category\": {\"id\":1, \"type\":\"Science\"}, \"previous_questions\":[21,29]}"`
+```
+{
+  "question": {
+    "answer": "Blood",
+    "category": 1,
+    "difficulty": 4,
+    "id": 22,
+    "question": "Hematology is a branch of medicine involving the study of what?"
+  }
+}
+```
+
 ## Testing
 To run the tests, run
 ```
