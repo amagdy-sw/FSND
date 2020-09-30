@@ -133,7 +133,6 @@ class QuestionView extends Component {
           url: `/questions/${id}`, //TODO: update request URL
           type: "DELETE",
           success: (result) => {
-            this.state.page = 1;
             this.getQuestions();
           },
           error: (error) => {
