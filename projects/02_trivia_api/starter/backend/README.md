@@ -89,7 +89,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - General:
     - return list of questions, number of total questions, current category, categories and success value
     - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
-- Sample: `curl http://127.0.0.1:5000/questions`
+- Sample: `curl http://127.0.0.1:5000/questions?page=1`
 ```
 {
   "categories": {
@@ -204,7 +204,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 - General: 
     - Using the submitted search term, Returns a list of questions objects, success value, and total number of questions
     - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1. 
-- Sample: `curl -X POST http://127.0.0.1:5000/questions/search -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"searchTerm\": \"title\"}"`
+- Sample: `curl -X POST http://127.0.0.1:5000/questions/search?page=1 -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"searchTerm\": \"title\"}"`
 ```
 {
   "current_category": null,
