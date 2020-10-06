@@ -4,13 +4,11 @@ from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
 
-
 app = Flask(__name__)
 
-AUTH0_DOMAIN = 'amagdysw.us.auth0.com'
+AUTH0_DOMAIN = 'amagdy-fsnd.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'image'
-
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
